@@ -1,0 +1,20 @@
+.DS_Store
+__pycache__/
+.idea/
+.vscode/
+node_modules/
+lib/
+dist/
+*.tsbuildinfo
+
+# 密钥/凭据文件（防误提交，真实密钥只放本地，不入库）
+Api_key*.txt
+api_key*.txt
+*.api_key
+*.env
+.env*
+.credentials.yaml
+*credential*.yaml
+*secret*.txt
+*token*.txt
+

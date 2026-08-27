@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeepSeek Harness · 一切皆插件</title>
+<style>
+/* ============ 工业级设计变量（CSS Custom Properties）============ */
+:root {
+  /* 色板：深色工业风 + 青色点缀（DSH/DeepSeek 蓝调） */
+  --bg-0: #0d1117;
+  --bg-1: #161b22;
+  --bg-2: #1c2333;
+  --bg-3: #242d3d;
+  --line: #30363d;
+  --text-1: #e6edf3;
+  --text-2: #9da7b3;
+  --text-3: #6e7681;
+  --accent: #4dabf7;
+  --accent-2: #39d98a;
+  --accent-3: #f0a6c0;
+  --warn: #e3b341;
+
+  /* 间距体系：4/8/12/16/24/32 */
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 24px; --sp-6: 32px;
+
+  /* 圆角与阴影 */
+  --r-sm: 6px; --r-md: 10px; --r-lg: 16px;
+  --shadow-1: 0 1px 3px rgba(0,0,0,.4);
+  --shadow-2: 0 4px 12px rgba(0,0,0,.35);
+
+  /* 字体 */
+  --font-ui: "Segoe UI", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --font-mono: "Cascadia Code", Consolas, monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: var(--font-ui);
+  background: var(--bg-0);
+  color: var(--text-1);
+  line-height: 1.6;
+}
+
+/* ============ 主 Grid 骨架（工业级应用布局）============ */
+.app {
+  min-height: 100vh;
+  display: grid;
+  grid-template-areas:
+    "topbar topbar topbar"
+    "sidebar main  aside"
+    "footer  footer footer";
+  grid-template-columns: 240px minmax(0, 1fr) 300px;
+  grid-template-rows: 56px minmax(0, 1fr) auto;
+  gap: 0;
+}
+
+/* ---- 顶栏 ---- */
+.topbar {
+  grid-area: topbar;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: 0 var(--sp-5);
+  background: var(--bg-1);
+  border-bottom: 1px solid var(--line);
+}
+.brand { display: flex; align-items: center; gap: var(--sp-2); font-weight: 700; letter-spacing: .3px; }
+.brand .logo {
+  width: 28px; height: 28px; border-radius: 8px;
+  display: grid; place-items: center;
+  background: linear-gradient(135deg, var(--accent), #2b7dcd);
+  color: #fff; font-weight: 800; font-size: 14px;
+}
+.brand .tag {
+  font-size: 12px; color: var(--accent); border: 1px solid var(--accent);
+  border-radius: 99px; padding: 1px 10px; margin-left: var(--sp-2);
+}
+.topbar .search {
+  max-width: 480px; width: 100%; justify-self: center;
+  display: grid; grid-template-columns: 1fr auto; gap: var(--sp-2);
+}
+.topbar .search input {
+  background: var(--bg-0); border: 1px solid var(--line); color: var(--text-1);
+  border-radius: var(--r-sm); padding: 7px 14px; font-size: 13px; outline: none;
+}
+.topbar .search input:focus { border-color: var(--accent); }
+.topbar .status {
+  display: grid; grid-auto-flow: column; gap: var(--sp-3); align-items: center;
+  font-size: 12px; color: var(--text-2);
+}
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-2); box-shadow: 0 0 6px var(--accent-2); }
+
+/* ---- 侧栏（插件清单）---- */
+.sidebar {
+  grid-area: sidebar;
+  background: var(--bg-1);
+  border-right: 1px solid var(--line);
+  padding: var(--sp-4);
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  gap: var(--sp-4);
+  overflow: auto;
+}
+.sidebar h3 {
+  font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-3);
+}
+.plugin-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: var(--sp-2);
+}
+.plugin-chip {
+  background: var(--bg-2); border: 1px solid var(--line); border-radius: var(--r-sm);
+  padding: 6px 8px; font-size: 11px; color: var(--text-2);
+  display: grid; grid-template-columns: auto 1fr; gap: 6px; align-items: center;
+  transition: border-color .15s, color .15s;
+}
+.plugin-chip:hover { border-color: var(--accent); color: var(--text-1); }
+.plugin-chip .ic { font-size: 12px; }
+
+/* ---- 主区：架构层级（核心 Grid 展示）---- */
+.main {
+  grid-area: main;
+  padding: var(--sp-5);
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: var(--sp-5);
+  overflow: auto;
+}
+.main-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end; gap: var(--sp-4);
+}
+.main-header h1 { font-size: 22px; font-weight: 700; }
+.main-header .sub { color: var(--text-2); font-size: 13px; margin-top: 2px; }
+
+/* 分层纵向堆叠（每一层是独立 Grid） */
+.layers {
+  display: grid;
+  gap: var(--sp-4);
+  align-content: start;
+}
+.layer {
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--bg-1);
+  padding: var(--sp-4);
+  display: grid;
+  gap: var(--sp-3);
+}
+.layer .layer-head {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center; gap: var(--sp-3);
+}
+.layer .layer-num {
+  width: 26px; height: 26px; border-radius: 8px;
+  display: grid; place-items: center;
+  font-weight: 700; font-size: 13px;
+  background: var(--bg-3); color: var(--accent);
+}
+.layer .layer-name { font-weight: 600; font-size: 14px; }
+.layer .layer-desc { font-size: 12px; color: var(--text-3); }
+
+/* 插件卡片网格 —— 工业级响应式 Grid */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: var(--sp-3);
+}
+.card {
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: var(--sp-3);
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  gap: 6px;
+  transition: transform .15s, border-color .15s, box-shadow .15s;
+}
+.card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-2);
+}
+.card .name { font-size: 13px; font-weight: 600; color: var(--text-1); }
+.card .key { font-family: var(--font-mono); font-size: 11px; color: var(--accent); }
+.card .desc { font-size: 11.5px; color: var(--text-2); line-height: 1.5; }
+
+/* 层间连接箭头 */
+.connector {
+  height: 18px;
+  display: grid;
+  place-items: center;
+  color: var(--text-3);
+  font-size: 14px;
+  position: relative;
+}
+.connector::before {
+  content: "";
+  position: absolute; top: 0; bottom: 50%;
+  width: 1px; background: var(--line);
+}
+.connector::after {
+  content: "";
+  position: absolute; top: 50%; bottom: 0;
+  width: 1px; background: var(--line);
+}
+.connector span { background: var(--bg-0); padding: 0 8px; z-index: 1; }
+
+/* ---- 右侧信息栏 ---- */
+.aside {
+  grid-area: aside;
+  background: var(--bg-1);
+  border-left: 1px solid var(--line);
+  padding: var(--sp-4);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: var(--sp-4);
+  overflow: auto;
+}
+.aside h3 { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-3); }
+.aside .facts {
+  display: grid;
+  gap: var(--sp-3);
+  align-content: start;
+}
+.fact {
+  border: 1px solid var(--line); border-radius: var(--r-md);
+  padding: var(--sp-3);
+  background: var(--bg-2);
+}
+.fact .t { font-size: 13px; font-weight: 600; color: var(--accent); margin-bottom: 4px; }
+.fact .b { font-size: 12px; color: var(--text-2); }
+
+/* 补丁层示意图（千层饼） */
+.patch-stack {
+  display: grid;
+  gap: 3px;
+}
+.patch-stack .p {
+  font-size: 11px; padding: 5px 10px; border-radius: 4px;
+  font-family: var(--font-mono);
+}
+.p1 { background: #2b3a55; color: #9fc3ff; }
+.p2 { background: #2d4a3d; color: #9fe8c0; }
+.p3 { background: #4a3d2d; color: #ffd9a0; }
+.p4 { background: #4a2d3d; color: #ffb3d1; }
+.patch-arrow { text-align: center; font-size: 12px; color: var(--text-3); }
+
+/* ---- 页脚 ---- */
+.footer {
+  grid-area: footer;
+  border-top: 1px solid var(--line);
+  background: var(--bg-1);
+  padding: var(--sp-3) var(--sp-5);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  font-size: 12px; color: var(--text-3);
+}
+.footer .meta { font-family: var(--font-mono); }
+
+/* ============ 响应式（窄屏降级为单列）============ */
+@media (max-width: 1100px) {
+  .app {
+    grid-template-areas:
+      "topbar"
+      "main"
+      "aside"
+      "footer";
+    grid-template-columns: 1fr;
+    grid-template-rows: 56px auto auto auto;
+  }
+  .sidebar { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- 顶栏 -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">H</div>
+      DeepSeek Harness
+      <span class="tag">一切皆插件</span>
+    </div>
+    <div class="search">
+      <input type="text" placeholder="搜索插件 / 服务 / 事件…">
+      <button style="background:var(--accent);border:none;border-radius:6px;color:#fff;padding:7px 14px;font-size:13px;cursor:pointer;">⌘ K</button>
+    </div>
+    <div class="status">
+      <span class="dot"></span> 插件树在线
+      <span>profile: web</span>
+    </div>
+  </header>
+
+  <!-- 侧栏：插件清单 -->
+  <aside class="sidebar">
+    <h3>🧩 已挂载插件</h3>
+    <div class="plugin-list">
+      <div class="plugin-chip"><span class="ic">🧠</span>agent</div>
+      <div class="plugin-chip"><span class="ic">📝</span>session</div>
+      <div class="plugin-chip"><span class="ic">🔧</span>tools</div>
+      <div class="plugin-chip"><span class="ic">📡</span>llm</div>
+      <div class="plugin-chip"><span class="ic">🗂️</span>prompt</div>
+      <div class="plugin-chip"><span class="ic">📁</span>fs</div>
+      <div class="plugin-chip"><span class="ic">💻</span>shell</div>
+      <div class="plugin-chip"><span class="ic">🔁</span>subagent</div>
+      <div class="plugin-chip"><span class="ic">🔗</span>acp</div>
+      <div class="plugin-chip"><span class="ic">🎨</span>ui-*</div>
+      <div class="plugin-chip"><span class="ic">🪄</span>skill</div>
+      <div class="plugin-chip"><span class="ic">🔷</span>quark</div>
+      <div class="plugin-chip"><span class="ic">🌶️</span>doubao</div>
+      <div class="plugin-chip"><span class="ic">🚀</span>launcher</div>
+    </div>
+    <h3>补丁层（千层饼）</h3>
+    <div class="patch-stack">
+      <div class="p p4">--patch overlay（临时）</div>
+      <div class="p p3">home patch（用户级）</div>
+      <div class="p p2">profile patch（本profile）</div>
+      <div class="p p1">组合包 bundles（地基）</div>
+      <div class="patch-arrow">▲ 上层覆盖下层 ▲</div>
+    </div>
+  </aside>
+
+  <!-- 主区：架构层级 -->
+  <main class="main">
+    <div class="main-header">
+      <div>
+        <h1>插件树：一切皆插件</h1>
+        <div class="sub">每一部分都是插件 —— 模型适配、工具、会话、Agent 主循环本身，都可替换、可重组</div>
+      </div>
+      <div style="font-family:var(--font-mono);font-size:12px;color:var(--text-3);">dsh --profile web --dump-config</div>
+    </div>
+
+    <div class="layers">
+
+      <!-- 第 0 层：Cordis 框架 -->
+      <div class="layer" style="border-color:#2b3a55;">
+        <div class="layer-head">
+          <div class="layer-num">0</div>
+          <div class="layer-name">Cordis 框架（运行时地基）</div>
+          <div class="layer-desc">插件 → 服务 / 事件 / 可逆副作用</div>
+        </div>
+        <div class="cards">
+          <div class="card"><div class="name">服务注入</div><div class="key">ctx.*</div><div class="desc">插件向共享上下文贡献能力，按层可覆盖</div></div>
+          <div class="card"><div class="name">类型化事件</div><div class="key">session/event</div><div class="desc">事件即扩展点，观察/拦截进行中的工作</div></div>
+          <div class="card"><div class="name">可逆副作用</div><div class="key">dispose</div><div class="desc">插件卸载时注册自动撤销，无补丁内核</div></div>
+        </div>
+      </div>
+      <div class="connector"><span>⬇ 挂载到插件树</span></div>
+
+      <!-- 第 1 层：组合包 -->
+      <div class="layer">
+        <div class="layer-head">
+          <div class="layer-num">1</div>
+          <div class="layer-name">组合包层（bundle）</div>
+          <div class="layer-desc">分发格式：配置项 + 挂载代码，可被上层 patch</div>
+        </div>
+        <div class="cards">
+          <div class="card"><div class="name">dsh-base</div><div class="key">地基</div><div class="desc">模型适配 · 工具 · 持久化 · 沙箱审批 · 设置 · 凭据 · 遥测</div></div>
+          <div class="card"><div class="name">dsh-web-app</div><div class="key">网页壳</div><div class="desc">浏览器工作台（web profile 加装）</div></div>
+          <div class="card"><div class="name">dsh-headless</div><div class="key">无头壳</div><div class="desc">一次性运行器，不带服务器</div></div>
+        </div>
+      </div>
+      <div class="connector"><span>⬇ 组装 profile</span></div>
+
+      <!-- 第 2 层：核心服务 -->
+      <div class="layer">
+        <div class="layer-head">
+          <div class="layer-num">2</div>
+          <div class="layer-name">核心服务层（大脑）</div>
+          <div class="layer-desc">packages/client · core/*</div>
+        </div>
+        <div class="cards">
+          <div class="card"><div class="name">会话日志</div><div class="key">ctx.sessions</div><div class="desc">只追加事件流，模型所见=已记录</div></div>
+          <div class="card"><div class="name">工具注册表</div><div class="key">ctx.tools</div><div class="desc">作用域化 + 把关执行流水线</div></div>
+          <div class="card"><div class="name">Agent 核心</div><div class="key">ctx.agents</div><div class="desc">接口 + 默认驱动循环（agent-loop）</div></div>
+          <div class="card"><div class="name">模型适配</div><div class="key">ctx.llm</div><div class="desc">消息/流式词汇表 + 多模型适配器</div></div>
+          <div class="card"><div class="name">提示词组装</div><div class="key">ctx.systemPrompt</div><div class="desc">片段 + 工具 schema 装配</div></div>
+        </div>
+      </div>
+      <div class="connector"><span>⬇ 能力经由 Seam 提供</span></div>
+
+      <!-- 第 3 层：能力 Seam -->
+      <div class="layer">
+        <div class="layer-head">
+          <div class="layer-num">3</div>
+          <div class="layer-name">能力 Seam（可替换器官）</div>
+          <div class="layer-desc">接口 + 实现分离 —— 换实现 = 换整个能力</div>
+        </div>
+        <div class="cards">
+          <div class="card"><div class="name">文件系统</div><div class="key">fs</div><div class="desc">本地 / 远程沙箱可切换</div></div>
+          <div class="card"><div class="name">Shell 执行</div><div class="key">shell</div><div class="desc">进程执行 + 沙箱/审批</div></div>
+          <div class="card"><div class="name">子进程</div><div class="key">subprocess</div><div class="desc">LSP / PTY / 原生命令</div></div>
+          <div class="card"><div class="name">子 Agent</div><div class="key">subagent</div><div class="desc">从新建子 agent 到委派外部产品</div></div>
+          <div class="card"><div class="name">附件</div><div class="key">attachment</div><div class="desc">图片/文件存储</div></div>
+          <div class="card"><div class="name">ACP 协议</div><div class="key">acp</div><div class="desc">Agent Client Protocol</div></div>
+        </div>
+      </div>
+      <div class="connector"><span>⬇ 扩展点挂载</span></div>
+
+      <!-- 第 4 层：Skill / UI / 自研扩展 -->
+      <div class="layer" style="border-color:#2d4a3d;">
+        <div class="layer-head">
+          <div class="layer-num">4</div>
+          <div class="layer-name">Skill / UI / 自研扩展（我们在这里）</div>
+          <div class="layer-desc">SKILL.md 渐进披露 · ui-* 界面插件 · 外部云服务</div>
+        </div>
+        <div class="cards">
+          <div class="card"><div class="name">skill 技能</div><div class="key">SKILL.md</div><div class="desc">name/description 目录 + 命中注入上下文</div></div>
+          <div class="card"><div class="name">UI 插件</div><div class="key">ui-* ×38</div><div class="desc">对话/设置/技能/工具/侧栏/主题…</div></div>
+          <div class="card"><div class="name">quark-qwen-vision</div><div class="key">CDP 网页操作</div><div class="desc">夸克千问：看图 / 反推 / Qwen-Image 生图</div></div>
+          <div class="card"><div class="name">doubao-creator</div><div class="key">CDP 网页操作</div><div class="desc">豆包 Seedance 2.0 文生视频</div></div>
+          <div class="card"><div class="name">quark-harness-launcher</div><div class="key">一键启动</div><div class="desc">Harness + 夸克 + 千问悬浮侧栏</div></div>
+          <div class="card"><div class="name">rh-workflow</div><div class="key">RH API</div><div class="desc">RunningHub H3 云端视频</div></div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- 右侧信息栏 -->
+  <aside class="aside">
+    <h3>💡 三个关键概念</h3>
+    <div class="facts">
+      <div class="fact">
+        <div class="t">① 一切皆插件</div>
+        <div class="b">连 Agent 主循环、会话日志都是插件。想换任何部分 → 挂新插件覆盖，无需改内核。</div>
+      </div>
+      <div class="fact">
+        <div class="t">② 分层叠加（patch）</div>
+        <div class="b">配置像千层饼：bundles → profile patch → home patch → --patch。上层覆盖下层。</div>
+      </div>
+      <div class="fact">
+        <div class="t">③ 能力 Seam</div>
+        <div class="b">接口 + 实现分离。换实现（如远程沙箱）→ 整个产品的这个能力跟着变。</div>
+      </div>
+    </div>
+
+    <h3>🔁 轮次流程</h3>
+    <div class="fact" style="font-family:var(--font-mono);font-size:11.5px;line-height:1.8;color:var(--text-2);">
+      你发消息 → 会话记录<br>
+      → 组装提示词（含工具 schema）<br>
+      → 请求模型 → 回话 / 调工具<br>
+      → 工具执行（过审批/沙箱）<br>
+      → 结果写回日志 → 继续<br>
+      → 直到轮次结束
+    </div>
+
+    <h3>📎 数据层</h3>
+    <div class="facts">
+      <div class="fact"><div class="t">会话日志</div><div class="b">JSONL 只追加，模型上下文的唯一来源</div></div>
+      <div class="fact"><div class="t">存储 / 凭据 / 设置</div><div class="b">SQLite/JSON · 加密凭据 · 可 patch 配置</div></div>
+    </div>
+  </aside>
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <div>DeepSeek Harness · 一切皆插件 · 由 @deepseek-ai/dsh 驱动（Cordis）</div>
+    <div class="meta">skills: quark-qwen-vision / doubao-creator / launcher / rh-workflow · 2026-08-25</div>
+  </footer>
+
+</div>
+</body>
+</html>
