@@ -1,6 +1,6 @@
 <div align="center">
 
-# <img src="assets/quark-harness.png" width="42" height="42" align="center" alt="SuperMate Harness" /> SuperMate Harness System
+# <img src="assets/quark-harness.png" width="42" height="42" align="middle" style="vertical-align: middle;" alt="SuperMate Harness" /> SuperMate Harness System
 
 **"Everything is a plugin"** — a self-contained true agent assembled from the [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) plugin architecture. Download once, get **official deepseek-ai skills/plugins + SuperMate originals** — no extra fetching.
 
