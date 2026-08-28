@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🧩 SuperMate Harness System
+# <img src="assets/quark-harness.png" width="42" height="42" align="center" alt="SuperMate Harness" /> SuperMate Harness System
 
 **"一切皆插件"** —— 基于 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) 插件结构组装而成的自包含真智能体系统。**下载一次，自带官方 deepseek-ai 的 skill/插件 + SuperMate 原创 skill/插件**，无需额外拉取。
 
