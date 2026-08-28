@@ -22,10 +22,10 @@
 
 | | |
 |---|---|
+| 🚀 **One-Click Entry** | Launch Harness + Quark + Qianwen floating sidebar with one icon |
 | 🧠 **AI Brain** | DeepSeek (cloud) + local LLMs — reason, plan, generate |
 | 👁️ **Eyes** | Vision skills — Ollama local, Quark-browser Qwen, or any OpenAI-compatible API |
 | 🎬 **Studio** | Video production — Doubao Seedance 2.0, RunningHub MiniMax H3, all web-automation driven |
-| 🚀 **One-Click Entry** | Launch Harness + Quark + Qianwen floating sidebar with one icon |
 | 🧩 **Everything is a Plugin** | Skills (how-to) + Plugins (can-do), freely composed & replaced |
 | 🔥 **Zero API Key Matrix** | DeepSeek brain + Qwen vision/image-gen + Doubao video + H3 cloud video — all via CDP web automation, no Ollama, no API keys, no GPU needed |
 
