@@ -36,7 +36,7 @@
 ```
 SuperMate Harness System
  ├── skills/                        → Skill layer (task-level: how-to)
- │    ├── Supermate-quark-harness-launcher/ 🚀 one-click launch: Harness + Quark + Qianwen sidebar
+ │    ├── Supermate-harness-launcher/ 🚀 one-click launch: Harness + Quark + Qianwen sidebar
  │    ├── quark-qwen-vision/         🖼️ Quark-browser vision + image gen (zero API key)
  │    ├── Deepseek-eyes/             👁️ vision skill (Ollama / vision API)
  │    ├── doubao-creator/            🎬 Doubao text-to-video (Seedance 2.0, zero API key)
@@ -58,7 +58,7 @@ SuperMate Harness System
 
 ```powershell
 # 1. Copy the launcher skill into DSH's skill directory
-Copy-Item skills\Supermate-quark-harness-launcher\ ~\.dsh\skills\ -Recurse
+Copy-Item skills\Supermate-harness-launcher\ ~\.dsh\skills\ -Recurse
 
 # 2. Edit config.ps1 — set your Harness start command / Quark path
 #    $HarnessStartCmd = 'E:\deepseek-harness\start-web.cmd'   (empty = start Harness manually)
@@ -77,7 +77,7 @@ powershell -ExecutionPolicy Bypass -File scripts\launch.ps1
 
 | Skill | What it does |
 |-------|--------------|
-| [**Supermate-quark-harness-launcher**](skills/Supermate-quark-harness-launcher/) | 🚀 **One-click entry (foundation)** — start Harness → open Quark (debug port 9222) → open the Harness GUI + Qianwen sidebar → auto-click Quark's native **"问AI"** button so the floating Qianwen side panel pops up next to your conversation. Cross-machine / resolution / DPI aware |
+| [**Supermate-harness-launcher**](skills/Supermate-harness-launcher/) | 🚀 **One-click entry (foundation)** — start Harness → open Quark (debug port 9222) → open the Harness GUI + Qianwen sidebar → auto-click Quark's native **"问AI"** button so the floating Qianwen side panel pops up next to your conversation. Cross-machine / resolution / DPI aware |
 | [**quark-qwen-vision**](skills/quark-qwen-vision/) | 🖼️ **Zero API key vision + image gen** — drive Quark browser's built-in Qwen (qwen-vl + Qwen-Image 2.0) via CDP: image analysis, prompt reverse-engineering, text-to-image |
 | [**Deepseek-eyes**](skills/Deepseek-eyes/) | 👁️ Give text models eyes — image → local vision (Ollama) / OpenAI-compatible vision API → structured text |
 | [**doubao-creator**](skills/doubao-creator/) | 🎬 **Zero API key text-to-video** — drive Doubao web (Seedance 2.0) via CDP: image analysis, 10s vertical video ads, portrait-protection workaround (describe-then-anchor) |
@@ -92,7 +92,7 @@ powershell -ExecutionPolicy Bypass -File scripts\launch.ps1
 
 > **Double-click one icon → Harness starts → Quark opens → the Qianwen floating sidebar slides out next to your conversation.**
 
-[**Supermate-quark-harness-launcher**](skills/Supermate-quark-harness-launcher/) is a single entry point for your whole working environment:
+[**Supermate-harness-launcher**](skills/Supermate-harness-launcher/) is a single entry point for your whole working environment:
 
 1. **Start Harness** — if `http://127.0.0.1:3080` is not up, launch your configured start script and wait until ready (≤120s)
 2. **Open Quark** — ensure the browser runs with `--remote-debugging-port=9222`, open the Harness GUI tab + the Qianwen sidebar page

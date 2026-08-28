@@ -36,7 +36,7 @@
 ```
 SuperMate Harness System
  ├── skills/                        → Skill 层（任务级：教"怎么做"）
- │    ├── Supermate-quark-harness-launcher/ 🚀 一键启动：Harness + 夸克 + 千问悬浮侧边栏
+ │    ├── Supermate-harness-launcher/ 🚀 一键启动：Harness + 夸克 + 千问悬浮侧边栏
  │    ├── quark-qwen-vision/         🖼️ 夸克浏览器视觉+生图（零 API Key）
  │    ├── Deepseek-eyes/             👁️ 视觉 skill（Ollama / 视觉 API）
  │    ├── doubao-creator/            🎬 豆包文生视频（Seedance 2.0，零 API Key）
@@ -58,7 +58,7 @@ SuperMate Harness System
 
 ```powershell
 # 1. 把启动器技能拷入 DSH 技能目录
-Copy-Item skills\Supermate-quark-harness-launcher\ ~\.dsh\skills\ -Recurse
+Copy-Item skills\Supermate-harness-launcher\ ~\.dsh\skills\ -Recurse
 
 # 2. 编辑 config.ps1 —— 配置 Harness 启动命令 / 夸克路径
 #    $HarnessStartCmd = 'E:\deepseek-harness\start-web.cmd'   （留空=手动启动 Harness）
@@ -77,7 +77,7 @@ powershell -ExecutionPolicy Bypass -File scripts\launch.ps1
 
 | 技能 | 能力 |
 |------|------|
-| [**Supermate-quark-harness-launcher**](skills/Supermate-quark-harness-launcher/) | 🚀 **一键入口（地基）**——启动 Harness → 打开夸克（调试端口 9222）→ 打开 Harness 界面 + 千问侧边栏页 → 自动点击夸克原生**"问AI"**按钮，弹出千问悬浮侧边栏。跨机型/分辨率/DPI 自适应 |
+| [**Supermate-harness-launcher**](skills/Supermate-harness-launcher/) | 🚀 **一键入口（地基）**——启动 Harness → 打开夸克（调试端口 9222）→ 打开 Harness 界面 + 千问侧边栏页 → 自动点击夸克原生**"问AI"**按钮，弹出千问悬浮侧边栏。跨机型/分辨率/DPI 自适应 |
 | [**quark-qwen-vision**](skills/quark-qwen-vision/) | 🖼️ **零 API Key 视觉+生图**——CDP 驱动夸克内置千问（qwen-vl + Qwen-Image 2.0）：识图、反推提示词、文生图 |
 | [**Deepseek-eyes**](skills/Deepseek-eyes/) | 👁️ 给文本模型长眼睛——图片 → 本地视觉（Ollama）/ OpenAI 兼容视觉 API → 结构化文字 |
 | [**doubao-creator**](skills/doubao-creator/) | 🎬 **零 API Key 文生视频**——CDP 驱动豆包网页版（Seedance 2.0）：识图、10s 竖屏广告、肖像保护破局法（先反推再锚定）|
@@ -92,7 +92,7 @@ powershell -ExecutionPolicy Bypass -File scripts\launch.ps1
 
 > **双击一个图标 → Harness 自动启动 → 夸克打开 → 千问悬浮侧边栏在对话页右侧弹出。**
 
-[**Supermate-quark-harness-launcher**](skills/Supermate-quark-harness-launcher/) 一个入口搞定整个工作环境：
+[**Supermate-harness-launcher**](skills/Supermate-harness-launcher/) 一个入口搞定整个工作环境：
 
 1. **启动 Harness**——`http://127.0.0.1:3080` 未运行时，调用配置的启动脚本并等待就绪（最多 120s）
 2. **打开夸克**——确保浏览器带 `--remote-debugging-port=9222` 运行，打开 Harness 界面 + 千问侧边栏页

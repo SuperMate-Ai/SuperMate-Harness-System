@@ -1,10 +1,10 @@
 ---
-name: Supermate-quark-harness-launcher
+name: Supermate-harness-launcher
 description: 一键启动 DeepSeek Harness + 夸克浏览器（千问悬浮侧边栏）。双击入口后自动：① 启动 Harness 网页服务（可配置命令，未运行才启动）→ ② 确保夸克浏览器以调试端口 9222 运行 → ③ 打开 Harness 界面与千问侧边栏页 → ④ 截图定位夸克原生"问AI"按钮并点击，弹出千问悬浮侧边栏面板。跨机型/分辨率/DPI 自适应（位置比例不变、像素变化，用截图+颜色扫描定位）。当用户想"用夸克打开 Harness/千问侧边栏/一键进入工作环境"时使用。
 user-invocable: true
 ---
 
-# Supermate-quark-harness-launcher — 夸克一键启动 DeepSeek Harness
+# Supermate-harness-launcher — 夸克一键启动 DeepSeek Harness
 
 > 一个入口干完所有事：**起 Harness → 开夸克 → 千问悬浮侧边栏弹出**。跨机型通用。
 
@@ -29,7 +29,7 @@ user-invocable: true
 
 ## 安装与配置
 
-1. 把 `Supermate-quark-harness-launcher` 整个文件夹放进 `~/.dsh/skills/`。
+1. 把 `Supermate-harness-launcher` 整个文件夹放进 `~/.dsh/skills/`。
 2. 编辑 `config.ps1`（只需改一次）：
    - `$HarnessStartCmd`：启动 Harness 服务器的命令路径（如 `E:\deepseek-harness\start-web.cmd`）；留空则不自动启动（需手动）
    - `$QuarkExe`：夸克 exe 路径；留空=自动探测

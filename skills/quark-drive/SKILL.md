@@ -66,5 +66,5 @@ CDP 连接夸克网盘列表页 → 定位文件行（cloud-column-file-item，�
 
 ## 关联
 
-- 同族：`quark-qwen-vision`（千问视觉）、`quark-harness-launcher`（一键启动）
+- 同族：`quark-qwen-vision`（千问视觉）、`Supermate-harness-launcher`（一键启动）
 - 登录态原则：**一切夸克系能力都靠"DSH 跑在夸克里"复用登录态**，零 API Key、零凭据
