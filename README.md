@@ -36,9 +36,9 @@
 ```
 SuperMate Harness System
  ├── skills/                        → Skill layer (task-level: how-to)
- │    ├── Deepseek-eyes/             👁️ vision skill (Ollama / vision API)
- │    ├── quark-qwen-vision/         🖼️ Quark-browser vision + image gen (zero API key)
  │    ├── quark-harness-launcher/    🚀 one-click launch: Harness + Quark + Qianwen sidebar
+ │    ├── quark-qwen-vision/         🖼️ Quark-browser vision + image gen (zero API key)
+ │    ├── Deepseek-eyes/             👁️ vision skill (Ollama / vision API)
  │    ├── doubao-creator/            🎬 Doubao text-to-video (Seedance 2.0, zero API key)
  │    ├── rh-workflow/               🎥 RunningHub cloud H3 workflow API
  │    ├── rh-workflow-9b/            📋 9B RH executor charter
@@ -70,11 +70,13 @@ powershell -ExecutionPolicy Bypass -File scripts\launch.ps1
 
 ## 🧩 Original Skills
 
+> **Built around the Quark browser** — Quark ships with the built-in **Qianwen sidebar** + **Quark Netdisk**, making it the ideal foundation for the SuperMate Harness System's extensions (vision, image generation, netdisk, video).
+
 | Skill | What it does |
 |-------|--------------|
-| [**Deepseek-eyes**](skills/Deepseek-eyes/) | 👁️ Give text models eyes — image → local vision (Ollama) / OpenAI-compatible vision API → structured text |
+| [**quark-harness-launcher**](skills/quark-harness-launcher/) | 🚀 **One-click entry (foundation)** — start Harness → open Quark (debug port 9222) → open the Harness GUI + Qianwen sidebar → auto-click Quark's native **"问AI"** button so the floating Qianwen side panel pops up next to your conversation. Cross-machine / resolution / DPI aware |
 | [**quark-qwen-vision**](skills/quark-qwen-vision/) | 🖼️ **Zero API key vision + image gen** — drive Quark browser's built-in Qwen (qwen-vl + Qwen-Image 2.0) via CDP: image analysis, prompt reverse-engineering, text-to-image |
-| [**quark-harness-launcher**](skills/quark-harness-launcher/) | 🚀 **One-click entry** — start Harness → open Quark (debug port 9222) → open Harness GUI + Qianwen sidebar → auto-click Quark's native **"问AI"** button so the floating Qianwen side panel pops up. Cross-machine / resolution / DPI aware |
+| [**Deepseek-eyes**](skills/Deepseek-eyes/) | 👁️ Give text models eyes — image → local vision (Ollama) / OpenAI-compatible vision API → structured text |
 | [**doubao-creator**](skills/doubao-creator/) | 🎬 **Zero API key text-to-video** — drive Doubao web (Seedance 2.0) via CDP: image analysis, 10s vertical video ads, portrait-protection workaround (describe-then-anchor) |
 | [**rh-workflow**](skills/rh-workflow/) | 🎥 RunningHub cloud H3 workflow API — I2V / T8 / Ref2VA video generation |
 | [**rh-workflow-9b**](skills/rh-workflow-9b/) | 📋 9B RH executor charter — no-drift execution rules for local 9B models |

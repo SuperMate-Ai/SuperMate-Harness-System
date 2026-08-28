@@ -36,9 +36,9 @@
 ```
 SuperMate Harness System
  ├── skills/                        → Skill 层（任务级：教"怎么做"）
- │    ├── Deepseek-eyes/             👁️ 视觉 skill（Ollama / 视觉 API）
- │    ├── quark-qwen-vision/         🖼️ 夸克浏览器视觉+生图（零 API Key）
  │    ├── quark-harness-launcher/    🚀 一键启动：Harness + 夸克 + 千问悬浮侧边栏
+ │    ├── quark-qwen-vision/         🖼️ 夸克浏览器视觉+生图（零 API Key）
+ │    ├── Deepseek-eyes/             👁️ 视觉 skill（Ollama / 视觉 API）
  │    ├── doubao-creator/            🎬 豆包文生视频（Seedance 2.0，零 API Key）
  │    ├── rh-workflow/               🎥 RunningHub 云端 H3 工作流 API
  │    ├── rh-workflow-9b/            📋 9B RH 执行宪章
@@ -70,11 +70,13 @@ powershell -ExecutionPolicy Bypass -File scripts\launch.ps1
 
 ## 🧩 原创技能
 
+> **基于夸克浏览器** —— 夸克自带**千问侧边栏** + **夸克网盘**，是 SuperMate Harness System 拓展（视觉、生图、网盘、视频）的理想底座。
+
 | 技能 | 能力 |
 |------|------|
-| [**Deepseek-eyes**](skills/Deepseek-eyes/) | 👁️ 给文本模型长眼睛——图片 → 本地视觉（Ollama）/ OpenAI 兼容视觉 API → 结构化文字 |
+| [**quark-harness-launcher**](skills/quark-harness-launcher/) | 🚀 **一键入口（地基）**——启动 Harness → 打开夸克（调试端口 9222）→ 打开 Harness 界面 + 千问侧边栏页 → 自动点击夸克原生**"问AI"**按钮，弹出千问悬浮侧边栏。跨机型/分辨率/DPI 自适应 |
 | [**quark-qwen-vision**](skills/quark-qwen-vision/) | 🖼️ **零 API Key 视觉+生图**——CDP 驱动夸克内置千问（qwen-vl + Qwen-Image 2.0）：识图、反推提示词、文生图 |
-| [**quark-harness-launcher**](skills/quark-harness-launcher/) | 🚀 **一键入口**——启动 Harness → 打开夸克（调试端口 9222）→ 打开 Harness 界面 + 千问侧边栏页 → 自动点击夸克原生**"问AI"**按钮，弹出千问悬浮侧边栏。跨机型/分辨率/DPI 自适应 |
+| [**Deepseek-eyes**](skills/Deepseek-eyes/) | 👁️ 给文本模型长眼睛——图片 → 本地视觉（Ollama）/ OpenAI 兼容视觉 API → 结构化文字 |
 | [**doubao-creator**](skills/doubao-creator/) | 🎬 **零 API Key 文生视频**——CDP 驱动豆包网页版（Seedance 2.0）：识图、10s 竖屏广告、肖像保护破局法（先反推再锚定）|
 | [**rh-workflow**](skills/rh-workflow/) | 🎥 RunningHub 云端 H3 工作流 API——I2V / T8 / Ref2VA 视频生成 |
 | [**rh-workflow-9b**](skills/rh-workflow-9b/) | 📋 9B RH 执行宪章——本地 9B 模型无漂移执行规范 |
