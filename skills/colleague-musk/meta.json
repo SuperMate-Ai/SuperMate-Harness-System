@@ -1,0 +1,141 @@
+{
+  "name": "马斯克",
+  "display_name": "马斯克",
+  "character": "colleague",
+  "classification": {
+    "language": "zh-CN",
+    "tags": [
+      "第一性原理",
+      "工作狂",
+      "直接",
+      "果断",
+      "激进"
+    ],
+    "gallery_category": "Colleague"
+  },
+  "profile": {
+    "company": "特斯拉 / SpaceX",
+    "role": "参谋长",
+    "mbti": "INTJ",
+    "identity": "第一性原理驱动的跨领域技术决策者"
+  },
+  "tags": {
+    "personality": [
+      "工作狂",
+      "直接",
+      "果断",
+      "激进",
+      "完美主义"
+    ],
+    "culture": [
+      "第一性原理"
+    ]
+  },
+  "knowledge_sources": [
+    "公开资料整理（访谈/传记/公开报道）",
+    "用户手动信息"
+  ],
+  "research_profile": "standard",
+  "type": "colleague",
+  "lifecycle": {
+    "status": "active",
+    "created_at": "2026-08-14T03:27:00.217768+00:00",
+    "updated_at": "2026-08-14T03:27:00.217768+00:00",
+    "version": "v1"
+  },
+  "generation": {
+    "engine": "dot-skill",
+    "character": "colleague",
+    "research_profile": "standard",
+    "preset": "dot.colleague.v1",
+    "prompt_bundle": {
+      "preset": "dot.colleague.v1",
+      "intake": "prompts/intake.md",
+      "work_analyzer": "prompts/work_analyzer.md",
+      "persona_analyzer": "prompts/persona_analyzer.md",
+      "work_builder": "prompts/work_builder.md",
+      "persona_builder": "prompts/persona_builder.md",
+      "merger": "prompts/merger.md",
+      "correction_handler": "prompts/correction_handler.md"
+    },
+    "research_profile_bundle": {},
+    "research_profile_references": [],
+    "merge_strategy": "compact",
+    "quality_profile": "budget-friendly",
+    "knowledge_dirs": [
+      "docs",
+      "messages",
+      "emails"
+    ],
+    "storage_root": "skills/colleague",
+    "created_from": [
+      "公开资料整理（访谈/传记/公开报道）",
+      "用户手动信息"
+    ],
+    "corrections_count": 0
+  },
+  "source_context": {
+    "domain": "work",
+    "relationship_to_user": "coworker",
+    "is_real_person": true,
+    "is_public_figure": false,
+    "is_fictional": false
+  },
+  "engine": {
+    "name": "dot-skill",
+    "kind": "meta-skill",
+    "character": "colleague",
+    "research_profile": "standard",
+    "preset": "dot.colleague.v1",
+    "prompt_bundle": {
+      "preset": "dot.colleague.v1",
+      "intake": "prompts/intake.md",
+      "work_analyzer": "prompts/work_analyzer.md",
+      "persona_analyzer": "prompts/persona_analyzer.md",
+      "work_builder": "prompts/work_builder.md",
+      "persona_builder": "prompts/persona_builder.md",
+      "merger": "prompts/merger.md",
+      "correction_handler": "prompts/correction_handler.md"
+    },
+    "research_profile_bundle": {},
+    "research_profile_references": [],
+    "merge_strategy": "compact",
+    "quality_profile": "budget-friendly",
+    "knowledge_dirs": [
+      "docs",
+      "messages",
+      "emails"
+    ],
+    "storage_root": "skills/colleague"
+  },
+  "schema_version": "3",
+  "slug": "musk",
+  "kind": "meta-skill",
+  "subtype": null,
+  "preset": "dot.colleague.v1",
+  "id": "meta-skill.colleague.musk",
+  "artifacts": {
+    "combined_skill": "SKILL.md",
+    "work_skill": "work_skill.md",
+    "persona_skill": "persona_skill.md",
+    "work_doc": "work.md",
+    "persona_doc": "persona.md",
+    "manifest": "manifest.json",
+    "combined_name": "colleague_musk",
+    "work_name": "colleague_musk_work",
+    "persona_name": "colleague_musk_persona",
+    "combined_command": "colleague-musk",
+    "work_command": "colleague-musk-work",
+    "persona_command": "colleague-musk-persona"
+  },
+  "compat": {
+    "legacy_command": "/create-colleague",
+    "legacy_storage_root": "colleagues",
+    "legacy_type": "colleague"
+  },
+  "summary": "马斯克, 特斯拉 / SpaceX 参谋长 第一性原理驱动的跨领域技术决策者, MBTI INTJ",
+  "created_at": "2026-08-14T03:27:00.217768+00:00",
+  "updated_at": "2026-08-14T03:27:00.217768+00:00",
+  "version": "v1",
+  "corrections_count": 0
+}

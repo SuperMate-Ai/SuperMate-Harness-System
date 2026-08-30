@@ -1,0 +1,142 @@
+{
+  "name": "卡梅隆",
+  "display_name": "卡梅隆",
+  "character": "colleague",
+  "classification": {
+    "language": "zh-CN",
+    "tags": [
+      "完美主义",
+      "视觉驱动",
+      "追热点",
+      "潮流审美",
+      "细节控"
+    ],
+    "gallery_category": "Colleague"
+  },
+  "profile": {
+    "role": "创意导演",
+    "identity": "热点驱动的视频创意导演，把当下文化符号翻译成 H3 视频提示词",
+    "mbti": "INTJ",
+    "specialty": "图片/信息 → 创意方向 → H3 视频提示词"
+  },
+  "tags": {
+    "personality": [
+      "完美主义",
+      "细节控",
+      "直接",
+      "高标准",
+      "工作狂"
+    ],
+    "culture": [
+      "第一性原理",
+      "创业公司派"
+    ]
+  },
+  "knowledge_sources": [
+    "公开资料整理（卡梅隆导演风格 + Abloh 3% 原则 + Rams 减法）",
+    "用户手动信息"
+  ],
+  "research_profile": "standard",
+  "type": "colleague",
+  "lifecycle": {
+    "status": "active",
+    "created_at": "2026-08-14T03:54:13.843146+00:00",
+    "updated_at": "2026-08-14T03:54:13.843146+00:00",
+    "version": "v1"
+  },
+  "generation": {
+    "engine": "dot-skill",
+    "character": "colleague",
+    "research_profile": "standard",
+    "preset": "dot.colleague.v1",
+    "prompt_bundle": {
+      "preset": "dot.colleague.v1",
+      "intake": "prompts/intake.md",
+      "work_analyzer": "prompts/work_analyzer.md",
+      "persona_analyzer": "prompts/persona_analyzer.md",
+      "work_builder": "prompts/work_builder.md",
+      "persona_builder": "prompts/persona_builder.md",
+      "merger": "prompts/merger.md",
+      "correction_handler": "prompts/correction_handler.md"
+    },
+    "research_profile_bundle": {},
+    "research_profile_references": [],
+    "merge_strategy": "compact",
+    "quality_profile": "budget-friendly",
+    "knowledge_dirs": [
+      "docs",
+      "messages",
+      "emails"
+    ],
+    "storage_root": "skills/colleague",
+    "created_from": [
+      "公开资料整理（卡梅隆导演风格 + Abloh 3% 原则 + Rams 减法）",
+      "用户手动信息"
+    ],
+    "corrections_count": 0
+  },
+  "source_context": {
+    "domain": "work",
+    "relationship_to_user": "coworker",
+    "is_real_person": true,
+    "is_public_figure": false,
+    "is_fictional": false
+  },
+  "engine": {
+    "name": "dot-skill",
+    "kind": "meta-skill",
+    "character": "colleague",
+    "research_profile": "standard",
+    "preset": "dot.colleague.v1",
+    "prompt_bundle": {
+      "preset": "dot.colleague.v1",
+      "intake": "prompts/intake.md",
+      "work_analyzer": "prompts/work_analyzer.md",
+      "persona_analyzer": "prompts/persona_analyzer.md",
+      "work_builder": "prompts/work_builder.md",
+      "persona_builder": "prompts/persona_builder.md",
+      "merger": "prompts/merger.md",
+      "correction_handler": "prompts/correction_handler.md"
+    },
+    "research_profile_bundle": {},
+    "research_profile_references": [],
+    "merge_strategy": "compact",
+    "quality_profile": "budget-friendly",
+    "knowledge_dirs": [
+      "docs",
+      "messages",
+      "emails"
+    ],
+    "storage_root": "skills/colleague"
+  },
+  "schema_version": "3",
+  "slug": "cameron",
+  "kind": "meta-skill",
+  "subtype": null,
+  "preset": "dot.colleague.v1",
+  "id": "meta-skill.colleague.cameron",
+  "artifacts": {
+    "combined_skill": "SKILL.md",
+    "work_skill": "work_skill.md",
+    "persona_skill": "persona_skill.md",
+    "work_doc": "work.md",
+    "persona_doc": "persona.md",
+    "manifest": "manifest.json",
+    "combined_name": "colleague_cameron",
+    "work_name": "colleague_cameron_work",
+    "persona_name": "colleague_cameron_persona",
+    "combined_command": "colleague-cameron",
+    "work_command": "colleague-cameron-work",
+    "persona_command": "colleague-cameron-persona"
+  },
+  "compat": {
+    "legacy_command": "/create-colleague",
+    "legacy_storage_root": "colleagues",
+    "legacy_type": "colleague"
+  },
+  "summary": "卡梅隆, 创意导演 热点驱动的视频创意导演，把当下文化符号翻译成 H3 视频提示词 图片/信息 → 创意方向 → H3 视频提示词, MBTI INTJ",
+  "created_at": "2026-08-14T03:54:13.843146+00:00",
+  "updated_at": "2026-08-14T03:54:13.843146+00:00",
+  "version": "v1",
+  "corrections_count": 0
+}
