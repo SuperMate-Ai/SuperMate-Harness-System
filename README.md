@@ -84,6 +84,8 @@ powershell -ExecutionPolicy Bypass -File scripts\launch.ps1
 | [**rh-workflow**](skills/rh-workflow/) | 🎥 RunningHub cloud H3 workflow API — I2V / T8 / Ref2VA video generation |
 | [**rh-workflow-9b**](skills/rh-workflow-9b/) | 📋 9B RH executor charter — no-drift execution rules for local 9B models |
 | [**MiniMax h3-video-producer**](skills/MiniMax%20h3-video-producer/) | 🎞️ Local H3 full video production: storyboard → H3 prompts → segment generation → assembly + BGM |
+| [**video-production-studio**](skills/video-production-studio/) | 🎥 **General-purpose video production pipeline** — distilled from zenstory-ai/drama-skills (MIT): five creator documents + preview→confirm→produce gate + **native MiniMax H3 prompts** + local channel wiring (Z-Image / RH Ref2VA·I2V / Doubao Seedance / ffmpeg) |
+| [**lyric-mv-storyboard**](skills/lyric-mv-storyboard/) | 🎵 **Lyric-driven MV storyboard** — lyrics (or .lrc timeline) + character image → three-layer acting system (goal/beat/facial timing) → timed storyboard + Ref2VA singing prompts (one line per clip to avoid recitation); portable [skill.json sources](skills/lyric-mv-storyboard/json/) included |
 | [**SuperMate**](skills/Supermate/) | 🤖 The SuperMate agent identity — how the assembled agent behaves end-to-end |
 
 ---

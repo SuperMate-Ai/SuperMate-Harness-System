@@ -42,11 +42,13 @@ SuperMate Harness System
  │    ├── doubao-creator/            🎬 豆包文生视频（Seedance 2.0，零 API Key）
  │    ├── rh-workflow/               🎥 RunningHub 云端 H3 工作流 API
  │    ├── rh-workflow-9b/            📋 9B RH 执行宪章
+ │    ├── video-production-studio/   🎥 通用视频制作流水线（五文档+确认闸门+H3 原生提示词+本地通道）
+ │    ├── lyric-mv-storyboard/       🎵 歌词驱动 MV 分镜（LRC 时间轴/三层表演/防变脸/一句一片段）
  │    ├── MiniMax h3-video-producer/ 🎞️ H3 视频生产全流程
  │    ├── Supermate/                 🤖 SuperMate 智能体身份
  │    └── DSH Official/             官方 deepseek-ai 技能（13 个 · fork 拷贝）
  └── plugins/                        → 插件层（系统级：能"做什么"）
-      ├── Supermate/                自研插件（核心增强=闭源商业层）
+      ├── Supermate/                自研插件（skill-json-importer 已开源；核心增强=闭源商业层）
       └── DSH Official/             官方 deepseek-ai 插件（49 族 · fork 拷贝）
 ```
 
@@ -84,6 +86,8 @@ powershell -ExecutionPolicy Bypass -File scripts\launch.ps1
 | [**rh-workflow**](skills/rh-workflow/) | 🎥 RunningHub 云端 H3 工作流 API——I2V / T8 / Ref2VA 视频生成 |
 | [**rh-workflow-9b**](skills/rh-workflow-9b/) | 📋 9B RH 执行宪章——本地 9B 模型无漂移执行规范 |
 | [**MiniMax h3-video-producer**](skills/MiniMax%20h3-video-producer/) | 🎞️ 本地 H3 视频全流程：分镜 → H3 提示词 → 逐段生成 → 合成 + BGM |
+| [**video-production-studio**](skills/video-production-studio/) | 🎥 **通用视频制作流水线**——由 zenstory-ai/drama-skills（MIT）蒸馏优化：五份创作文档 + 预览→确认→生产闸门 + **MiniMax H3 原生提示词** + 本地通道接线（Z-Image / RH Ref2VA·I2V / 豆包 Seedance / ffmpeg） |
+| [**lyric-mv-storyboard**](skills/lyric-mv-storyboard/) | 🎵 **歌词驱动 MV 分镜**——歌词（支持 .lrc 时间轴）+ 角色图 → 三层表演体系（行动逻辑/表演节拍/面部时序）→ 时序分镜表 + Ref2VA 演唱提示词（一句一片段防念白），附便携 [skill.json 源](skills/lyric-mv-storyboard/json/) |
 | [**SuperMate**](skills/Supermate/) | 🤖 SuperMate 智能体身份——组装好的智能体如何端到端行动 |
 
 ---

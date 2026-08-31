@@ -1,0 +1,80 @@
+{
+  "skillMeta": {
+    "skillId": "LyricToStoryboardLRC",
+    "skillName": "歌词驱动分镜生成器（LRC 时间轴扩展版）",
+    "version": "1.1.0",
+    "description": "输入歌词（支持 .lrc 文件/文本，含 [mm:ss.xx] 精确时间标签）、曲风、BPM、角色设定，自动解析 LRC 时间轴或按 BPM 估算，切分段落、解析情绪，用三层表演导戏体系（行动逻辑/表演节拍/面部时序）生成时序分镜表 + MiniMax H3 原生视频提示词。可用于 MV、剧情短片脚本创作。",
+    "author": "SuperMate Workflow",
+    "tags": ["歌词", "分镜", "MV", "LRC", "时间轴", "表演导戏", "多模态"],
+    "inputSchema": {
+      "type": "object",
+      "required": ["lyricText"],
+      "properties": {
+        "lyricText": {
+          "type": "string",
+          "description": "完整歌词文本，支持主歌副歌直接粘贴，可包含间奏标记；若为 .lrc 内容则含 [mm:ss.xx] 时间标签"
+        },
+        "lrcInput": {
+          "type": "string",
+          "description": "可选：.lrc 文件原文或路径。提供后按时间标签生成精确逐句时间轴，取代 BPM 估算；相邻歌词行间隔大于2.5秒的空白自动标记为器乐间奏",
+          "default": ""
+        },
+        "musicStyle": {
+          "type": "string",
+          "description": "歌曲曲风，例如抒情流行、摇滚、国风、电子",
+          "default": "抒情流行"
+        },
+        "bpm": {
+          "type": "number",
+          "description": "歌曲BPM，用于无LRC时估算单句时长：拍长=60/BPM秒；抒情0.35-0.45秒/字，说唱0.25-0.35秒/字，句间停顿0.5-1拍",
+          "default": 85
+        },
+        "globalMood": {
+          "type": "string",
+          "description": "整首歌整体情绪基调，如失落遗憾、热烈释放、孤寂释然"
+        },
+        "characterRef": {
+          "type": "string",
+          "description": "角色固定参考描述，用于锁定人物外貌，避免变脸",
+          "default": "亚洲轻熟日系美人，极简黑色长裙，大红唇，皮肤白皙"
+        },
+        "aspectRatio": {
+          "type": "string",
+          "description": "视频画幅",
+          "default": "16:9",
+          "enum": ["16:9", "9:16", "4:3", "21:9"]
+        },
+        "outputMode": {
+          "type": "string",
+          "description": "输出模式，markdown输出表格脚本，raw输出纯结构化数据",
+          "default": "markdown",
+          "enum": ["markdown", "raw"]
+        }
+      }
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "timeline": {
+          "type": "string",
+          "description": "解析后的逐句时间轴与段落结构、器乐间奏标记"
+        },
+        "storyboardTable": {
+          "type": "string",
+          "description": "时序分镜表格内容"
+        },
+        "globalVideoPrompt": {
+          "type": "string",
+          "description": "合并后的全局一键生成提示词"
+        }
+      }
+    }
+  },
+  "execute": {
+    "type": "llm",
+    "systemPrompt": "你是专业MV导演，严格执行下面整套工作流程处理用户输入的歌词，必须复用三层表演导戏体系：行动逻辑，表演节拍，面部动作时序。\n\n【步骤0 时间轴锁定】\n若用户提供了 lrcInput 或 lyricText 含 [mm:ss.xx] 时间标签：解析 LRC 时间轴。规则：(1) [ti:][ar:][al:][by:] 元信息行不参与时间轴；(2) 一行多标签如 [00:12.00][00:40.00]重复句，每个标签各生成一行；(3) 按时间升序排序，每句开始时间=标签时间，结束时间=下一句开始时间；(4) 相邻歌词行间隔大于2.5秒的空白标记为器乐间奏段，分镜歌词栏写【器乐间奏】。若时间戳与歌曲实际不符，以用户确认为准并标注未验证。\n若没有 LRC：按 BPM 估算时间轴——拍长=60/BPM秒；抒情0.35-0.45秒/字，说唱0.25-0.35秒/字；句间停顿0.5-1拍；段落间呼吸1-2拍；切分点必须落在语义停顿（逗号/句号/换气）或节拍上，禁止在词中间或元音中段硬切；估算结果标注为估算。\n\n【步骤1 歌词分段切分】\n将歌词切分为主歌、预副歌、副歌、桥段、尾声、器乐间奏。段间情绪落差是分镜节奏的骨架；副歌通常是视觉与表演高峰；副歌重复时视觉必须变化（场景/机位/光态/景别），不原样复用上一遍。\n\n【步骤2 逐句切片解析】\n对每一个时间切片提取四项：1.本句核心意象；2.本句内在情绪；3.行动逻辑：角色目标，当下阻碍，角色行为策略；4.表演节拍：仅使用一个主导节拍，可选：平静、掩饰、失衡、抑制、释放、恍惚、决绝；搭配视线、气息、肢体细节；5.面部动作时序：表情如何启动，到达情绪峰值，之后如何逐步消退（启动/峰值/消退三拍）。\n\n【步骤3 场景镜头与转场设计】\n基于歌词意象生成对应场景环境；同一意象跨句复用场景，副歌或情绪升级时做同景异态（同场景不同光线/时段/天气/机位）；指定运镜：推、拉、摇、环绕、固定机位、跟拍、缓慢横移，每镜一个主运镜且写明叙事理由；定义光影、主色调、画面氛围，整体色调跟随globalMood设渐变曲线；相邻分镜设置转场，可选：淡入淡出、硬切、虚焦转场、运动衔接转场，禁止无逻辑突兀跳转。人物外貌严格遵守characterRef参数，不随意修改。\n\n【步骤4 输出分镜表】\n表格字段：时间｜歌词原文｜场景｜运镜光影｜人物表演(行动逻辑+节拍+面部时序)｜转场｜AI视频提示词片段。器乐间奏行歌词栏留空写【器乐间奏】，侧重镜头流动，人物静默表演承接上一段情绪。\n\n【步骤5 输出全局合并总提示词】\n全局美术锚点（风格/主色调/画幅/质感/光向）+ 逐镜提示词按时间轴拼接；总时长超过15秒时说明多镜头拼接协议：切点落在节拍或歌词气口上、同场景延续用上一段尾帧作下一段首帧、所有片段绑定同一Master Audio原曲音轨、剪辑对齐后硬切拼接并统一调色。\n\n【强制约束】\n1.禁止使用特殊符号，输出标点只使用中英文标准标点。\n2.表演节拍跟随歌词情绪流动，不要全程同一个表情。\n3.提示词片段适配MiniMax H3语法，包含画幅、电影机参数、画质描述；演唱/对白写 <d>[语言]原文</d> 逐字保留。\n4.器乐间奏行歌词栏留空，写【器乐间奏】，侧重镜头流动，人物静默表演承接上一段情绪。\n5.outputMode为markdown时输出markdown表格；outputMode为raw输出结构化原始数据，不要闲聊。\n6.歌词是锁定输入：不增写、不翻译、不改写歌词。",
+    "userPromptTemplate": "lrcInput:\n{{lrcInput}}\n\nlyricText:\n{{lyricText}}\n\nmusicStyle: {{musicStyle}}\nbpm: {{bpm}}\nglobalMood: {{globalMood}}\ncharacterRef: {{characterRef}}\naspectRatio: {{aspectRatio}}\noutputMode: {{outputMode}}",
+    "temperature": 0.65,
+    "maxTokens": 8192
+  }
+}

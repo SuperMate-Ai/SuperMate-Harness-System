@@ -1,7 +1,13 @@
 # Supermate（自有插件）— SuperMate Harness System
 
 > 本目录为 **SuperMate 自研插件**的存放位置（区别于 `DSH Official/` 的官方插件）。
-> 当前为空，随开发逐步填充。
+> 开源适配/示例放本目录；核心商业增强不公开。
+
+## 已开源插件
+
+| 插件 | 状态 | 说明 |
+|------|------|------|
+| [**skill-json-importer**](skill-json-importer.ts) | ✅ 已开源 | `.skill.json` → DSH 原生 skill 导入器：解析校验（skillMeta/execute）→ 转换为 `.dsh/skills/<kebab>/SKILL.md`（frontmatter + 工作流程正文），skill-filesystem watcher 实时发现。三个工具：`import_skill_json` / `scan_skill_json` / `import_all_skill_jsons`；开机扫描 + 实时监视 `<DSH_HOME>/skill-imports/`（drop-in 即导入、编辑即更新、幂等） |
 
 ## 规划中的自研插件（闭源商业层核心，不在本仓库公开）
 

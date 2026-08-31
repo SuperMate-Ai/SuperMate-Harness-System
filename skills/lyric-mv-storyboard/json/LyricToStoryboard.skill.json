@@ -1,0 +1,71 @@
+{
+  "skillMeta": {
+    "skillId": "LyricToStoryboard",
+    "skillName": "歌词驱动分镜生成器",
+    "version": "1.0.0",
+    "description": "输入歌词、曲风、BPM、角色设定，自动生成时序化视频分镜脚本。内置三层表演导戏体系，输出分镜表格+AI视频提示词，适配MiniMax H3、LTX‑2.5多模态模型，可用于MV、剧情短片脚本创作。",
+    "author": "SuperMate Workflow",
+    "tags": ["歌词", "分镜", "MV", "视频脚本", "表演导戏", "多模态"],
+    "inputSchema": {
+      "type": "object",
+      "required": ["lyricText"],
+      "properties": {
+        "lyricText": {
+          "type": "string",
+          "description": "完整歌词文本，支持主歌副歌直接粘贴，可包含间奏标记"
+        },
+        "musicStyle": {
+          "type": "string",
+          "description": "歌曲曲风，例如抒情流行、摇滚、国风、电子",
+          "default": "抒情流行"
+        },
+        "bpm": {
+          "type": "number",
+          "description": "歌曲BPM，用于估算单句时长",
+          "default": 85
+        },
+        "globalMood": {
+          "type": "string",
+          "description": "整首歌整体情绪基调，如失落遗憾、热烈释放、孤寂释然"
+        },
+        "characterRef": {
+          "type": "string",
+          "description": "角色固定参考描述，用于锁定人物外貌，避免变脸",
+          "default": "亚洲轻熟日系美人，极简黑色长裙，大红唇，皮肤白皙"
+        },
+        "aspectRatio": {
+          "type": "string",
+          "description": "视频画幅",
+          "default": "16:9",
+          "enum": ["16:9", "9:16", "4:3", "21:9"]
+        },
+        "outputMode": {
+          "type": "string",
+          "description": "输出模式，markdown输出表格脚本，raw输出纯结构化数据",
+          "default": "markdown",
+          "enum": ["markdown", "raw"]
+        }
+      }
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "storyboardTable": {
+          "type": "string",
+          "description": "时序分镜表格内容"
+        },
+        "globalVideoPrompt": {
+          "type": "string",
+          "description": "合并后的全局一键生成提示词"
+        }
+      }
+    }
+  },
+  "execute": {
+    "type": "llm",
+    "systemPrompt": "你是专业MV导演，严格执行下面整套工作流程处理用户输入的歌词，必须复用三层表演导戏体系：行动逻辑，表演节拍，面部动作时序。\n\n【工作步骤】\n步骤1 歌词分段切分\n将歌词切分为主歌、预副歌、副歌、桥段、尾声、器乐间奏。依据BPM估算每段、每一句的时间切片；间奏没有歌词，重点做镜头流动与情绪承接。\n\n步骤2 逐句切片解析\n对每一个时间切片提取四项信息：\n1.本句核心意象\n2.本句内在情绪\n3.行动逻辑：角色目标，当下阻碍，角色行为策略\n4.表演节拍：仅使用一个主导节拍，可选：平静、掩饰、失衡、抑制、释放、恍惚、决绝；搭配视线、气息、肢体细节\n5.面部动作时序：表情如何启动，到达情绪峰值，之后如何逐步消退\n\n步骤3 场景镜头与转场设计\n基于歌词意象生成对应场景环境；指定运镜：推、拉、摇、环绕、固定机位、跟拍、缓慢横移；定义光影、主色调、画面氛围；相邻分镜设置转场，可选：淡入淡出、硬切、虚焦转场、运动衔接转场，禁止无逻辑突兀跳转。人物外貌严格遵守characterRef参数，不随意修改。\n\n步骤4 输出分镜表格\n表格字段：时间｜歌词原文｜场景｜运镜光影｜人物表演(行动逻辑+节拍+面部时序)｜转场｜AI视频提示词片段。\n\n步骤5 额外输出全局合并总提示词，可直接复制用于AI视频生成。\n\n【强制约束】\n1.禁止使用特殊符号，输出标点只使用中英文标准标点。\n2.表演节拍跟随歌词情绪流动，不要全程同一个表情。\n3.提示词片段适配MiniMax H3语法，包含画幅、电影机参数、画质描述。\n4.器乐间奏行歌词栏留空，写【器乐间奏】，侧重镜头流动，人物静默表演承接上一段情绪。\n5.outputMode为markdown时输出markdown表格；outputMode为raw输出结构化原始数据，不要闲聊。",
+    "userPromptTemplate": "lyricText:\n{{lyricText}}\n\nmusicStyle: {{musicStyle}}\nbpm: {{bpm}}\nglobalMood: {{globalMood}}\ncharacterRef: {{characterRef}}\naspectRatio: {{aspectRatio}}\noutputMode: {{outputMode}}",
+    "temperature": 0.65,
+    "maxTokens": 8192
+  }
+}
