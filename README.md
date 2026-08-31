@@ -81,6 +81,7 @@ powershell -ExecutionPolicy Bypass -File scripts\launch.ps1
 | [**quark-qwen-vision**](skills/quark-qwen-vision/) | 🖼️ **Zero API key vision + image gen** — drive Quark browser's built-in Qwen (qwen-vl + Qwen-Image 2.0) via CDP: image analysis, prompt reverse-engineering, text-to-image |
 | [**Deepseek-eyes**](skills/Deepseek-eyes/) | 👁️ Give text models eyes — image → local vision (Ollama) / OpenAI-compatible vision API → structured text |
 | [**doubao-creator**](skills/doubao-creator/) | 🎬 **Zero API key text-to-video** — drive Doubao web (Seedance 2.0) via CDP: image analysis, 10s vertical video ads, portrait-protection workaround (describe-then-anchor) |
+| [**dsh-im-wecom**](skills/dsh-im-wecom/) | 💬 **WeCom bot × DSH** — connect WeCom smart bots to Harness via the `@xmanrui/dsh-im` plugin (official long connection, zero hand-written bridge); **Qianwen sidebar image proxy**: WeCom images → Quark Qwen CDP analysis → text-only into the model (text-only models can "see" images) |
 | [**rh-workflow**](skills/rh-workflow/) | 🎥 RunningHub cloud H3 workflow API — I2V / T8 / Ref2VA video generation |
 | [**rh-workflow-9b**](skills/rh-workflow-9b/) | 📋 9B RH executor charter — no-drift execution rules for local 9B models |
 | [**MiniMax h3-video-producer**](skills/MiniMax%20h3-video-producer/) | 🎞️ Local H3 full video production: storyboard → H3 prompts → segment generation → assembly + BGM |

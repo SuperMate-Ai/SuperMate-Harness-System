@@ -30,6 +30,7 @@ SuperMate Harness System
 | **rh-workflow-9b** | ✅ 已发布 | 9B 无漂移执行宪章（RH 通道执行器行为准则），见 [rh-workflow-9b/SKILL.md](rh-workflow-9b/SKILL.md) |
 | **video-production-studio** | ✅ 已发布 | 通用视频制作流水线（短剧/漫剧/口播/广告/MV）：五文档 + 确认闸门 + H3 原生提示词 + 本地通道接线，见 [SKILL.md](video-production-studio/SKILL.md) |
 | **lyric-mv-storyboard** | ✅ 已发布 | 歌词驱动 MV 分镜生成器（LRC 时间轴/三层表演体系/防变脸/Ref2VA 演唱提示词），见 [SKILL.md](lyric-mv-storyboard/SKILL.md)；便携 skill.json 源见 [json/](lyric-mv-storyboard/json/) |
+| **dsh-im-wecom** | ✅ 已发布 | 企业微信智能机器人 × DSH（@xmanrui/dsh-im 插件长连接 + 千问侧栏读图代理补丁），见 [SKILL.md](dsh-im-wecom/SKILL.md)，补丁包 [patch/](dsh-im-wecom/patch/) |
 
 ## 说明
 - Skill 资产 = SKILL.md + 参考文档/脚本/模板（任务级，可独立安装/替换）。

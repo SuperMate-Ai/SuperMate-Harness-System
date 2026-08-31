@@ -40,6 +40,7 @@ SuperMate Harness System
  │    ├── quark-qwen-vision/         🖼️ 夸克浏览器视觉+生图（零 API Key）
  │    ├── Deepseek-eyes/             👁️ 视觉 skill（Ollama / 视觉 API）
  │    ├── doubao-creator/            🎬 豆包文生视频（Seedance 2.0，零 API Key）
+ │    ├── dsh-im-wecom/              💬 企业微信机器人 × DSH（@xmanrui/dsh-im + 千问读图代理）
  │    ├── rh-workflow/               🎥 RunningHub 云端 H3 工作流 API
  │    ├── rh-workflow-9b/            📋 9B RH 执行宪章
  │    ├── video-production-studio/   🎥 通用视频制作流水线（五文档+确认闸门+H3 原生提示词+本地通道）
@@ -83,6 +84,7 @@ powershell -ExecutionPolicy Bypass -File scripts\launch.ps1
 | [**quark-qwen-vision**](skills/quark-qwen-vision/) | 🖼️ **零 API Key 视觉+生图**——CDP 驱动夸克内置千问（qwen-vl + Qwen-Image 2.0）：识图、反推提示词、文生图 |
 | [**Deepseek-eyes**](skills/Deepseek-eyes/) | 👁️ 给文本模型长眼睛——图片 → 本地视觉（Ollama）/ OpenAI 兼容视觉 API → 结构化文字 |
 | [**doubao-creator**](skills/doubao-creator/) | 🎬 **零 API Key 文生视频**——CDP 驱动豆包网页版（Seedance 2.0）：识图、10s 竖屏广告、肖像保护破局法（先反推再锚定）|
+| [**dsh-im-wecom**](skills/dsh-im-wecom/) | 💬 **企业微信智能机器人 × DSH**——`@xmanrui/dsh-im` 插件官方长连接接入，零手写桥接；**千问侧栏读图代理**：企微图片 → 夸克千问 CDP 分析 → 纯文本进模型（纯文本模型也能看图）|
 | [**rh-workflow**](skills/rh-workflow/) | 🎥 RunningHub 云端 H3 工作流 API——I2V / T8 / Ref2VA 视频生成 |
 | [**rh-workflow-9b**](skills/rh-workflow-9b/) | 📋 9B RH 执行宪章——本地 9B 模型无漂移执行规范 |
 | [**MiniMax h3-video-producer**](skills/MiniMax%20h3-video-producer/) | 🎞️ 本地 H3 视频全流程：分镜 → H3 提示词 → 逐段生成 → 合成 + BGM |
