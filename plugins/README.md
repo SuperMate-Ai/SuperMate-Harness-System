@@ -27,6 +27,7 @@ SuperMate Harness System
 |------|------|-----------|
 | **模型适配** | ✅ 可用 | 云端 DeepSeek（当前主脑）+ 本地 Ollama（视觉/未来主脑） |
 | **记忆** | ✅ 可用 | Obsidian vault + Hermes 记忆协议（MEMORY.md/USER.md） |
+| **上下文自动备份** | ✅ 可用 | [context-handoff-auto](Supermate/context-handoff-auto/)（128k 本地模型防满载，对齐 DSH compaction） |
 | **调度** | ✅ 可用（技能脚本内） | 资源错峰：生成/质检互斥、逐条卸载模型（见 h3-video-producer） |
 | **工具** | ✅ 可用 | ComfyUI（H3/Z-Image）、ffmpeg、Ollama、GitHub、System.Drawing |
 | **沙箱** | 🔜 规划 | 插件隔离、权限分级、高危二次确认、审计日志 |
