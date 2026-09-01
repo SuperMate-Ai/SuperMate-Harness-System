@@ -31,6 +31,12 @@ SuperMate Harness System
 | **video-production-studio** | ✅ 已发布 | 通用视频制作流水线（短剧/漫剧/口播/广告/MV）：五文档 + 确认闸门 + H3 原生提示词 + 本地通道接线，见 [SKILL.md](video-production-studio/SKILL.md) |
 | **lyric-mv-storyboard** | ✅ 已发布 | 歌词驱动 MV 分镜生成器（LRC 时间轴/三层表演体系/防变脸/Ref2VA 演唱提示词），见 [SKILL.md](lyric-mv-storyboard/SKILL.md)；便携 skill.json 源见 [json/](lyric-mv-storyboard/json/) |
 | **dsh-im-wecom** | ✅ 已发布 | 企业微信智能机器人 × DSH（@xmanrui/dsh-im 插件长连接 + 千问侧栏读图代理补丁），见 [SKILL.md](dsh-im-wecom/SKILL.md)，补丁包 [patch/](dsh-im-wecom/patch/) |
+| **quant-trading-start** | ✅ 已发布 | 量化交易工作区技能导航与数据地图（A股研究），见 [SKILL.md](quant-trading-start/SKILL.md) |
+| **quant-data** | ✅ 已发布 | A股行情数据采集更新（中证500+自选股，AkShare 东财/新浪/腾讯多源兜底），见 [SKILL.md](quant-data/SKILL.md) |
+| **astock-technical** | ✅ 已发布 | A股个股技术面分析（K线形态/MA/MACD/KDJ/RSI/BOLL/买卖信号，概率机制输出），见 [SKILL.md](astock-technical/SKILL.md) |
+| **astock-screener** | ✅ 已发布 | 股票筛选器（12 技术信号 + 自定义条件 + 7 维多因子评分），见 [SKILL.md](astock-screener/SKILL.md) |
+| **astock-report** | ✅ 已发布 | A股报告生成器（每日复盘/个股研报/持仓报告，概率机制），见 [SKILL.md](astock-report/SKILL.md) |
+| **trade-journal** | ✅ 已发布 | AI 建议 vs 实盘复盘（记录→30天比对→胜率统计，vs 中证500），见 [SKILL.md](trade-journal/SKILL.md) |
 
 ## 说明
 - Skill 资产 = SKILL.md + 参考文档/脚本/模板（任务级，可独立安装/替换）。
