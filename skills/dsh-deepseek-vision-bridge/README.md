@@ -8,6 +8,15 @@
 > 原生 `llm-deepseek` adapter 层**把视觉通道变成模型请求管线里的自动环节——模型
 > 收到纯文本却完整"看懂"图片。GUI / IM / 任何走 DeepSeek 的图片统一生效。
 
+> 🌍 **通用性（非 SuperMate 私有）**：本机制是对 **DSH 上游的通用增强补丁**——
+> 只改官方包 `@deepseek-ai/dsh-llm-deepseek`，依赖全为 `@deepseek-ai/*` + Node
+> 内置 + 通用夸克 CDP，零私有依赖、零机器特定路径。任何官方 DSH 用户 clone 上游
+> 后覆盖 `patch/` 即可获得；本仓库仅是托管发布点（可回馈上游/独立分发）。
+
+> 👁️ **双 agent 协作 vs mmproj**：本地多模态靠 mmproj 做权重内静态对齐（本地小
+> 眼睛、不可追问）；本桥让文本 agent（DeepSeek）自动调用**夸克云端满血千问**做
+> 运行时转译——满血视觉远超本地 9B/35B，且**可对话式追问、可替换、可迭代**。
+
 - **原生层 · 全局生效**：改 DSH 自己的 `llm-deepseek` 适配器（`patch/` 提供改动后源文件与说明），非逐通道桥接
 - **零显存零 token**：识图走夸克 CDP（侧栏），不占本地 GPU、不需 API key
 - **图不丢**：原图入 durable/attachment，仅模型收到的副本是文本

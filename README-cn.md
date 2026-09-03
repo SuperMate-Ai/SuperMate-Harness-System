@@ -148,6 +148,14 @@ GUI 贴图 → Host 预检放行（adapter 现声明含 image）
 - **工程级健壮**——严格串行 + 1.5s 冷却（侧栏是网页会话，突发并发会卡）；只缓存
   成功（同图秒回、失败不污染）；失败降级占位 + 下轮自动重试；无附件 seam 保持
   原生 text-only（零回归，158 测试全绿）
+- **上游通用 · 非 SuperMate 私有**——补丁只改官方 `@deepseek-ai/dsh-llm-deepseek`
+  包，依赖全为 `@deepseek-ai/*` + Node 内置 + 通用夸克 CDP。clone 官方
+  `deepseek-ai/deepseek-harness`，覆盖 `patch/` 重建重启即得同等能力；本仓库只是
+  它的分发点（可回馈上游）
+- **双 agent 胜过投影**——本地多模态靠 mmproj 做权重内静态对齐（固定本地小眼睛、
+  不可追问）；本桥让文本 agent（DeepSeek）自动调用**夸克云端满血千问**（qwen-vl-max
+  级）做运行时转译——借来的满血眼睛远超本地 9B/35B，且**可对话追问、可替换、
+  可迭代**，静态 mmproj 做不到
 - **诚实边界**——首图 ~10s 在模型请求内；缓存进程级；侧栏会话式是极端多图的上限
 
 源码补丁 + 文档：`skills/dsh-deepseek-vision-bridge/patch/`（含回滚）。
