@@ -83,6 +83,7 @@ powershell -ExecutionPolicy Bypass -File scripts\launch.ps1
 | [**Supermate-harness-launcher**](skills/Supermate-harness-launcher/) | 🚀 **一键入口（地基）**——启动 Harness → 打开夸克（调试端口 9222）→ 打开 Harness 界面 + 千问侧边栏页 → 自动点击夸克原生**"问AI"**按钮，弹出千问悬浮侧边栏。跨机型/分辨率/DPI 自适应 |
 | [**quark-qwen-vision**](skills/quark-qwen-vision/) | 🖼️ **零 API Key 视觉+生图**——CDP 驱动夸克内置千问（qwen-vl + Qwen-Image 2.0）：识图、反推提示词、文生图 |
 | [**Deepseek-eyes**](skills/Deepseek-eyes/) | 👁️ 给文本模型长眼睛——图片 → 本地视觉（Ollama）/ OpenAI 兼容视觉 API → 结构化文字 |
+| [**dsh-deepseek-vision-bridge**](skills/dsh-deepseek-vision-bridge/) | 🧠 **架构级突破——纯文本 DeepSeek 原生读图**——patch DSH 原生 `llm-deepseek` adapter：GUI 贴图后 `deepseek-v4-flash`（纯文本）直接收图，adapter 自动经**夸克千问侧栏**（CDP，零显存零 key）识图转中文描述注入。模型感知不到图却完整理解画面；GUI / IM 等一切走 DeepSeek 的图片统一生效。多图串行+冷却、只缓存成功、失败自动重试、无附件 seam 零回归 |
 | [**doubao-creator**](skills/doubao-creator/) | 🎬 **零 API Key 文生视频**——CDP 驱动豆包网页版（Seedance 2.0）：识图、10s 竖屏广告、肖像保护破局法（先反推再锚定）|
 | [**dsh-im-wecom**](skills/dsh-im-wecom/) | 💬 **企业微信智能机器人 × DSH**——`@xmanrui/dsh-im` 插件官方长连接接入，零手写桥接；**千问侧栏读图代理**：企微图片 → 夸克千问 CDP 分析 → 纯文本进模型（纯文本模型也能看图）|
 | [**rh-workflow**](skills/rh-workflow/) | 🎥 RunningHub 云端 H3 工作流 API——I2V / T8 / Ref2VA 视频生成 |
@@ -121,6 +122,35 @@ powershell -ExecutionPolicy Bypass -File scripts\launch.ps1
 ```
 
 实测于 RTX 5080 16GB — [中文手册](skills/Deepseek-eyes/README-cn.md) · [English manual](skills/Deepseek-eyes/README-en.md)
+
+---
+
+### 🧠 架构级突破 · [dsh-deepseek-vision-bridge](skills/dsh-deepseek-vision-bridge/)
+
+> **"看图"是能力，不是模型属性。** DeepSeek 权重里没有视觉编码器——这是物理限制，
+> prompt 技巧解不了。但本桥在**架构层**跨过了它：视觉通道（夸克千问侧栏）从
+> "手动调用"升级为**模型请求管线里的自动环节**。
+
+```text
+GUI 贴图 → Host 预检放行（adapter 现声明含 image）
+  → 图入 durable（历史可见，永不丢失）
+  → llm-deepseek adapter 每次请求前扫描 image block
+  → 夸克千问侧栏（CDP）识图（~6-12s，缓存后秒回）
+  → 干净文本替换 image block → 序列化（assertTextOnly 不触发）
+  → DeepSeek 正常回复，已"看懂"图片
+```
+
+**为什么是突破而不是技巧：**
+- **原生层 · 全局生效**——补丁在 DSH 自己的 `llm-deepseek` adapter，GUI 贴图 /
+  IM 通道 / 一切走 DeepSeek 的图片统一自动转译，无需逐通道维护桥接
+- **图永不丢失**——原图字节在 durable attachment store，只转译发给模型的副本
+- **零显存 · 零 token**——识图走已开的夸克浏览器 CDP，16GB 显卡留给 ComfyUI H3
+- **工程级健壮**——严格串行 + 1.5s 冷却（侧栏是网页会话，突发并发会卡）；只缓存
+  成功（同图秒回、失败不污染）；失败降级占位 + 下轮自动重试；无附件 seam 保持
+  原生 text-only（零回归，158 测试全绿）
+- **诚实边界**——首图 ~10s 在模型请求内；缓存进程级；侧栏会话式是极端多图的上限
+
+源码补丁 + 文档：`skills/dsh-deepseek-vision-bridge/patch/`（含回滚）。
 
 ---
 

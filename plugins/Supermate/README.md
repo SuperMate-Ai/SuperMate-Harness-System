@@ -9,6 +9,7 @@
 |------|------|------|
 | [**skill-json-importer**](skill-json-importer.ts) | ✅ 已开源 | `.skill.json` → DSH 原生 skill 导入器：解析校验（skillMeta/execute）→ 转换为 `.dsh/skills/<kebab>/SKILL.md`（frontmatter + 工作流程正文），skill-filesystem watcher 实时发现。三个工具：`import_skill_json` / `scan_skill_json` / `import_all_skill_jsons`；开机扫描 + 实时监视 `<DSH_HOME>/skill-imports/`（drop-in 即导入、编辑即更新、幂等） |
 | [**context-handoff-auto**](context-handoff-auto/) | ✅ 可用 | 128k 本地模型上下文自动备份（对齐 DSH compaction，防摘要丢细节） |
+| [**dsh-deepseek-vision-bridge**](../../skills/dsh-deepseek-vision-bridge/) | ✅ 可用（以 skill 形态发布） | **DeepSeek 原生看图桥**：patch DSH 原生 `llm-deepseek` adapter，纯文本模型 GUI 直接收图，自动经夸克千问侧栏识图转文本——架构级突破，非逐通道桥接。含 patch/ 源码与说明 |
 
 ## 规划中的自研插件（闭源商业层核心，不在本仓库公开）
 

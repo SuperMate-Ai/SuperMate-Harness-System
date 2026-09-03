@@ -80,6 +80,7 @@ powershell -ExecutionPolicy Bypass -File scripts\launch.ps1
 | [**Supermate-harness-launcher**](skills/Supermate-harness-launcher/) | 🚀 **One-click entry (foundation)** — start Harness → open Quark (debug port 9222) → open the Harness GUI + Qianwen sidebar → auto-click Quark's native **"问AI"** button so the floating Qianwen side panel pops up next to your conversation. Cross-machine / resolution / DPI aware |
 | [**quark-qwen-vision**](skills/quark-qwen-vision/) | 🖼️ **Zero API key vision + image gen** — drive Quark browser's built-in Qwen (qwen-vl + Qwen-Image 2.0) via CDP: image analysis, prompt reverse-engineering, text-to-image |
 | [**Deepseek-eyes**](skills/Deepseek-eyes/) | 👁️ Give text models eyes — image → local vision (Ollama) / OpenAI-compatible vision API → structured text |
+| [**dsh-deepseek-vision-bridge**](skills/dsh-deepseek-vision-bridge/) | 🧠 **ARCHITECTURAL BREAKTHROUGH — text DeepSeek natively reads images** — a patch on DSH's own `llm-deepseek` adapter: paste an image into the Harness GUI and `deepseek-v4-flash` (pure text, `inputModalities:['text']`) accepts it. The adapter auto-routes each image through the **Quark Qianwen sidebar** (CDP, zero VRAM / zero API key) and injects a clean Chinese description before serialization. The model never "sees" the image — yet fully understands it. Works for GUI, IM, any DeepSeek-bound image. Multi-image serial + cooldown, success-only caching, auto-retry, zero regression without the attachment seam |
 | [**doubao-creator**](skills/doubao-creator/) | 🎬 **Zero API key text-to-video** — drive Doubao web (Seedance 2.0) via CDP: image analysis, 10s vertical video ads, portrait-protection workaround (describe-then-anchor) |
 | [**dsh-im-wecom**](skills/dsh-im-wecom/) | 💬 **WeCom bot × DSH** — connect WeCom smart bots to Harness via the `@xmanrui/dsh-im` plugin (official long connection, zero hand-written bridge); **Qianwen sidebar image proxy**: WeCom images → Quark Qwen CDP analysis → text-only into the model (text-only models can "see" images) |
 | [**rh-workflow**](skills/rh-workflow/) | 🎥 RunningHub cloud H3 workflow API — I2V / T8 / Ref2VA video generation |
@@ -118,6 +119,31 @@ Image / graphic file → Skill → local vision model or vision API → structur
 ```
 
 Measured on RTX 5080 16GB — [English manual](skills/Deepseek-eyes/README-en.md) · [中文手册](skills/Deepseek-eyes/README-cn.md)
+
+---
+
+### 🧠 The Architectural Breakthrough · [dsh-deepseek-vision-bridge](skills/dsh-deepseek-vision-bridge/)
+
+> **"Seeing" is a capability, not a model property.** DeepSeek's weights contain no vision encoder — that is a physical limit no prompt trick can cross. But this bridge proves the harness can cross it at the **architecture level**: the vision channel (Quark Qianwen sidebar) is promoted from "call it by hand" to "an automatic stage of the model-request pipeline".
+
+```text
+Paste image into GUI → host accepts (adapter now declares image input)
+  → image kept durably (visible in history, never lost)
+  → llm-deepseek adapter, before every request, scans image blocks
+  → Quark Qianwen sidebar (CDP) describes each one (~6-12s, cached after)
+  → clean text replaces the image block → serialize (assertTextOnly never fires)
+  → DeepSeek answers as if it saw the picture
+```
+
+**Why this is a breakthrough — not a trick:**
+
+- **Native layer, universal effect** — the patch lives in DSH's own `llm-deepseek` adapter, so **every** DeepSeek-bound image — GUI paste, IM channels, anything — goes through it. No per-channel bridge to maintain (unlike bridge-only approaches).
+- **The image is never lost** — original bytes stay in the durable attachment store; only the copy sent to the model becomes text.
+- **Zero VRAM, zero tokens** — vision rides the already-open Quark browser over CDP; nothing loads into the 16 GB GPU that ComfyUI H3 sampling needs.
+- **Built to run, not demo** — strict serial + 1.5s cooldown (the sidebar is a web session and stalls under bursts), **success-only caching** (same image = ms on repeat), failure degrades to a placeholder and **auto-retries next turn** (never poisons later requests), and the composition **without the attachment seam keeps native text-only behavior** (zero regression, 158 tests green).
+- **Honest boundary** — first image costs ~10 s inside the model request; the cache is per-process; the sidebar being a session is the ceiling for extreme multi-image bursts.
+
+Source patch + docs: `skills/dsh-deepseek-vision-bridge/patch/` · rollback included.
 
 ---
 
