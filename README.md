@@ -18,6 +18,18 @@
 
 ---
 
+
+
+## DSH version support (important for GitHub users)
+- Works with DSH **rc.5 (legacy, no auth)** and **0.1.2 / 0.1.3+ (per-launch token auth)**.
+  The launcher auto-detects: GET / returns 200 -> legacy plain URL; returns 401 -> opens
+  the per-launch token URL printed by `dsh web`.
+- Upgrading to the latest DSH? Read `skills/dsh-upgrade-runbook` first (BOM/schema pitfalls,
+  official git-clone steps, preflight script).
+- NOT upgrading? Nothing to do - old DSH keeps working in legacy mode.
+- Backup: this repo's git history is the old-version fallback; always back up your DSH_HOME
+  (sessions/settings/storages) before upgrading.
+
 ## ✨ Highlights
 
 | | |
