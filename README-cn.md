@@ -64,7 +64,7 @@ SuperMate Harness System
 Copy-Item skills\Supermate-harness-launcher\ ~\.dsh\skills\ -Recurse
 
 # 2. 编辑 config.ps1 —— 配置 Harness 启动命令 / 夸克路径
-#    $HarnessStartCmd = 'E:\deepseek-harness\start-web.cmd'   （留空=手动启动 Harness）
+#    $HarnessStartCmd = 'E:\deepseek-harness-v013\start-web.cmd'   （留空=手动启动 Harness）
 
 # 3. 运行——Harness 启动、夸克打开、千问悬浮侧边栏弹出
 powershell -ExecutionPolicy Bypass -File scripts\launch.ps1

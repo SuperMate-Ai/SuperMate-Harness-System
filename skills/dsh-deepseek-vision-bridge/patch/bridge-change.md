@@ -94,7 +94,7 @@ DSH checkout **非 git 仓库**，改动前务必整树备份。回滚三步：
 # 1. 用备份覆盖 adapter.ts / index.ts
 # 2. 删除 vision-translate.ts / vision-debug.ts
 # 3. 重建
-cd E:\deepseek-harness
+cd E:\deepseek-harness-v013
 pnpm exec tsc -b packages/llm/llm-deepseek
 pnpm exec tsdown --env.DSH_BUILD_FACE host
 # 4. 重启 dsh web

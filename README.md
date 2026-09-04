@@ -61,7 +61,7 @@ SuperMate Harness System
 Copy-Item skills\Supermate-harness-launcher\ ~\.dsh\skills\ -Recurse
 
 # 2. Edit config.ps1 — set your Harness start command / Quark path
-#    $HarnessStartCmd = 'E:\deepseek-harness\start-web.cmd'   (empty = start Harness manually)
+#    $HarnessStartCmd = 'E:\deepseek-harness-v013\start-web.cmd'   (empty = start Harness manually)
 
 # 3. Run it — Harness starts, Quark opens, the Qianwen floating sidebar pops up
 powershell -ExecutionPolicy Bypass -File scripts\launch.ps1

@@ -31,7 +31,7 @@ user-invocable: true
 
 1. 把 `Supermate-harness-launcher` 整个文件夹放进 `~/.dsh/skills/`。
 2. 编辑 `config.ps1`（只需改一次）：
-   - `$HarnessStartCmd`：启动 Harness 服务器的命令路径（如 `E:\deepseek-harness\start-web.cmd`）；留空则不自动启动（需手动）
+   - `$HarnessStartCmd`：启动 Harness 服务器的命令路径（如 `E:\deepseek-harness-v013\start-web.cmd`）；留空则不自动启动（需手动）
    - `$QuarkExe`：夸克 exe 路径；留空=自动探测
    - `$HarnessUrl`：Harness 网页地址（默认 `http://127.0.0.1:3080`）
 

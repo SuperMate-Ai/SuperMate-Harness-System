@@ -31,6 +31,7 @@ import type { Message } from '@deepseek-ai/dsh-llm'
 import { QuarkQwenChannel, translateMessages } from './vision-translate.ts'
 import type { ImageRefLike, VisionTranslator } from './vision-translate.ts'
 import { visionLog } from './vision-debug.ts'
+import { PersistentVisionCache } from './vision-cache.ts'
 
 export {
   DEFAULT_CONTEXT_WINDOW,
@@ -251,13 +252,8 @@ export function apply(ctx: Context, config: Config): void {
 
   let userId: AnonymousUserId | undefined
   const resolveUserId = (): AnonymousUserId => userId ??= getOrCreateAnonymousUserId()
-  // Image-to-text bridge: when the deployment composes the attachment seam
-  // (resolved lazily — it may mount after this adapter registers), models on
-  // this provider advertise image input and the adapter translates image
-  // blocks through the Quark Qwen sidebar (zero local VRAM/token cost) before
-  // the text-only wire serialization. Without the seam, models stay text-only
-  // and the adapter keeps rejecting image content as before.
-  const visionCache = new Map<string, string>()
+  // Image-to-text bridge: persists across harness restarts.
+  const visionCache = new PersistentVisionCache()
   let translator: VisionTranslator | undefined
   try {
     translator = new QuarkQwenChannel()

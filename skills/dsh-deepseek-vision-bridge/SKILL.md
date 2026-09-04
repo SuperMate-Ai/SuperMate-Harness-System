@@ -86,7 +86,7 @@ GUI 贴图 → Host 预检放行（模型声明含 image）→ 图存 durable + 
 
 ## 改动文件（对 DSH 原生源码，见 patch/）
 
-| 文件（E:\deepseek-harness\packages\llm\llm-deepseek\src\） | 改动 |
+| 文件（E:\deepseek-harness-v013\packages\llm\llm-deepseek\src\） | 改动 |
 |---|---|
 | `vision-translate.ts` | **新增**：`QuarkQwenChannel`（子进程调 `qwen-vision-anchor.js`）+ `translateMessages` / `translateContentBlocks`（严格串行 + 图间冷却）+ `cleanDescription`（去回声/建议句）+ 按 attachmentId 缓存（仅缓存成功） |
 | `adapter.ts` | `DeepSeekAdapterOptions` 增可选 `translateContent` / `resolveImageSupported`；`stream()` 序列化前调用转译；`inputModalities` 按懒判定动态声明（无附件 seam 时保持原生 text-only） |
@@ -115,7 +115,7 @@ GUI 贴图 → Host 预检放行（模型声明含 image）→ 图存 durable + 
 #    vision-translate.ts / adapter.ts / index.ts → packages/llm/llm-deepseek/src/
 #    vision-translate.spec.ts                    → packages/llm/llm-deepseek/tests/（可选）
 # 2. 重建 lib
-cd E:\deepseek-harness
+cd E:\deepseek-harness-v013
 pnpm exec tsc -b packages/llm/llm-deepseek
 pnpm exec tsdown --env.DSH_BUILD_FACE host
 # 3. 重启 dsh web（改动 DSH 原生源码必须重启进程生效）

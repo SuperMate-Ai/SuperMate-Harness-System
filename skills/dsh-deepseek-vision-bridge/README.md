@@ -50,7 +50,7 @@ dsh-deepseek-vision-bridge/
 # 1. patch/ 覆盖到 DSH checkout 对应路径（见 patch/bridge-change.md）
 # 2. scripts/ 复制到本机（或指向已有 quark-qwen-vision skill）
 # 3. 重建 + 重启
-cd E:\deepseek-harness
+cd E:\deepseek-harness-v013
 pnpm exec tsc -b packages/llm/llm-deepseek
 pnpm exec tsdown --env.DSH_BUILD_FACE host
 # 重启 dsh web → GUI 贴图发送，DeepSeek 即能"看图"
