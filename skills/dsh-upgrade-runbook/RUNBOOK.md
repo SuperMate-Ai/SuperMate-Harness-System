@@ -1,4 +1,4 @@
-# DSH Upgrade Runbook (distilled 2026-09-04)
+﻿# DSH Upgrade Runbook (distilled 2026-09-04)
 
 Goal: upgrade any DSH install (laptop / cloud PC / this box) to a newer official tag
 WITHOUT repeating today's failures.
@@ -42,3 +42,14 @@ WITHOUT repeating today's failures.
   all-fields-required -> preflight is mandatory.
 - 0.1.3 llm-deepseek already contains image attachment pipeline natively (check
   before porting any "vision bridge" patch).
+
+## v0.1.3+ extra pitfalls (newer than first distil)
+- dsh web now requires per-launch token auth: it prints
+  "dsh web: http://127.0.0.1:3080/?token=..." and the browser must open THAT URL once
+  (mints a signed cookie). Opening the bare URL returns 401
+  ("dsh web authentication required").
+- dsh web auto-opens the default browser; pass --no-open and open the token URL in
+  the browser you actually want (Quark).
+- One-click launchers must (a) treat 401 as "server up", (b) parse the token URL from the
+  server log, (c) open it in the target browser. Supermate-harness-launcher does this
+  automatically and still supports legacy rc.5 (200 -> plain URL).
